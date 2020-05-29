@@ -21,7 +21,7 @@ type Product {
   liquidCooled: Boolean
   bikeType: BikeType
   range: String
-  createdBy: User!
+  createdBy: Int!
 }
 
 input NewProductInput {
@@ -33,7 +33,7 @@ input NewProductInput {
   liquidCooled: Boolean
   bikeType: BikeType
   range: String
-  createdBy: User!
+  createdBy: Int!
 }
 
 input UpdateProductInput {
@@ -45,7 +45,7 @@ input UpdateProductInput {
   liquidCooled: Boolean
   bikeType: BikeType
   range: String
-  createdBy: User
+  createdBy: Int
 }
 
 extend type Query {

@@ -2,16 +2,37 @@ const connection = require("./db/connection");
 const { ApolloServer } = require("apollo-server");
 const fs = require("fs");
 const path = require("path");
+const couponResolver = require("./types/user/user.resolver");
+const productResolver = require("./types/product/product.resolver");
+const userResolver = require("./types/user/user.resolver");
 
-console.log(process.cwd());
+const models = ["coupon", "product", "user"];
 
 function loadSchemas() {
-  return ["coupon", "product", "user"]
+  return models
     .map((name) => {
       const filePath = path.join(process.cwd(), "types", name, `${name}.gql`);
       return fs.readFileSync(filePath).toString();
     })
     .join("\n");
+}
+
+function merge(...args) {
+  const result = {};
+  args.forEach((obj) => {
+    Object.keys(obj).forEach((key) => {
+      if (!!result[key] && typeof result[key] === "object") {
+        result[key] = merge(result[key], obj[key]);
+      } else {
+        result[key] = obj[key];
+      }
+    });
+  });
+  return result;
+}
+
+function loadResolvers() {
+  return merge(couponResolver, productResolver, userResolver);
 }
 
 const start = async () => {
@@ -21,14 +42,12 @@ const start = async () => {
 
   const rootSchema = `
     type Query
-    type Mutation      
+    type Mutation
   `;
 
   const server = new ApolloServer({
     typeDefs: [rootSchema, schemas],
-    resolvers: {
-      Query: {},
-    },
+    resolvers: loadResolvers(),
   });
 
   const { url } = await server.listen({ port: 3000 });
