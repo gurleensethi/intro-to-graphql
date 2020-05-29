@@ -10,8 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apollo-server": "^2.14.1",
     "express": "^4.17.1",
+    "graphql": "^15.0.0",
+    "graphql-import": "^1.0.2",
+    "graphql-tools": "^6.0.3",
     "mongo": "^0.1.0",
-    "mongoose": "^5.9.16"
+    "mongoose": "^5.9.16",
+    "validator": "^13.0.0"
   }
 }
