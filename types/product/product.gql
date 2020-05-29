@@ -14,25 +14,25 @@ enum BikeType {
 type Product {
   name: String!
   price: Float!
-  image: String
-  type: ProductType
+  image: String!
+  type: ProductType!
   description: String
   liquidCooled: Boolean
   bikeType: BikeType
   range: String
-  createdBy: ID
+  createdBy: User!
 }
 
 input NewProductInput {
   name: String!
   price: Float!
-  image: String
-  type: ProductType
+  image: String!
+  type: ProductType!
   description: String
   liquidCooled: Boolean
   bikeType: BikeType
   range: String
-  createdBy: ID
+  createdBy: User!
 }
 
 input UpdateProductInput {
@@ -44,16 +44,16 @@ input UpdateProductInput {
   liquidCooled: Boolean
   bikeType: BikeType
   range: String
-  createdBy: ID
+  createdBy: User
 }
 
 extend type Query {
-  product: Product
-  products: [Product]
+  product: Product!
+  products: [Product]!
 }
 
 extend type Mutation {
-  newProduct(input: NewProductInput): Product!
-  updateProduct(input: UpdateProductInput): Product!
-  removeProduct(input: ID): Product!
+  newProduct(input: NewProductInput!): Product!
+  updateProduct(input: UpdateProductInput!): Product!
+  removeProduct(input: ID!): Product!
 }
