@@ -32,4 +32,6 @@ const couponSchema = new Schema(
   }
 );
 
-module.exports = model("coupon", couponSchema);
+module.exports = {
+  Coupon: model("coupon", couponSchema),
+};
