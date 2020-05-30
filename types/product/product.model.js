@@ -55,6 +55,6 @@ const productSchema = new Schema(
   }
 );
 
-model.exports = {
-  Product: model("product", productSchema),
-};
+const Product = model("product", productSchema);
+
+module.exports = { Product };
