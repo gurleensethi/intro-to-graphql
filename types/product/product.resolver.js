@@ -21,7 +21,13 @@ const updateProduct = (_, args, ctx) => {
 };
 
 const removeProduct = (_, args, ctx) => {
-  return Product.findByIdAndRemove(args.id).lean().exec();
+  return Product.findByIdAndRemove(SchemaTypes.ObjectId(args.id)).lean().exec();
+};
+
+const productTypeMap = {
+  GAMING_PC: "GamingPc",
+  BIKE: "Bike",
+  DRONE: "Drone",
 };
 
 module.exports = {
@@ -34,5 +40,9 @@ module.exports = {
     updateProduct,
     removeProduct,
   },
-  Product: {},
+  Product: {
+    __resolveType(product) {
+      return productTypeMap[product.type];
+    },
+  },
 };

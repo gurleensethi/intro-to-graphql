@@ -41,7 +41,7 @@ const start = async () => {
   const schemas = loadSchemas();
 
   const rootSchema = `
-    type Query
+    type Query 
     type Mutation    
   `;
 

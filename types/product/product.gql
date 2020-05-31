@@ -11,7 +11,17 @@ enum BikeType {
   BEACH
 }
 
-type Product {
+interface Product {
+  _id: ID!
+  name: String!
+  price: Float!
+  image: String!
+  type: ProductType!
+  description: String
+  createdBy: Int!
+}
+
+type GamingPc implements Product {
   _id: ID!
   name: String!
   price: Float!
@@ -19,7 +29,27 @@ type Product {
   type: ProductType!
   description: String
   liquidCooled: Boolean
+  createdBy: Int!
+}
+
+type Bike implements Product {
+  _id: ID!
+  name: String!
+  price: Float!
+  image: String!
+  type: ProductType!
+  description: String
   bikeType: BikeType
+  createdBy: Int!
+}
+
+type Drone implements Product {
+  _id: ID!
+  name: String!
+  price: Float!
+  image: String!
+  type: ProductType!
+  description: String
   range: String
   createdBy: Int!
 }
@@ -56,5 +86,5 @@ extend type Query {
 extend type Mutation {
   newProduct(input: NewProductInput!): Product!
   updateProduct(id: ID!, input: UpdateProductInput!): Product!
-  removeProduct(id: ID!): Product!
+  removeProduct(id: ID!): Product
 }
