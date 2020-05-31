@@ -48,6 +48,15 @@ const start = async () => {
   const server = new ApolloServer({
     typeDefs: [rootSchema, schemas],
     resolvers: loadResolvers(),
+    context({ req }) {
+      const apiKey = req.headers.authorization;
+
+      if (!apiKey) {
+        return;
+      }
+
+      return { user: { role: apiKey, _id: "123", email: "test@test.com" } };
+    },
   });
 
   const { url } = await server.listen({ port: 3000 });
